@@ -102,7 +102,7 @@ class pci7415_driver(object):
         base = '/pyinterface/pci7415/rsw{self.rsw_id}'.format(**locals())
 
         for ax in self.use_axis:
-            b = '{base}/{ax}.format(**locals()/'.format(**locals())
+            b = '{base}/{ax}/'.format(**locals())
             # rospy.Subscriber(b+'step_cmd', std_msgs.msg.Int64, self.set_step, callback_args=ax)
             self.node.create_subscription(std_msgs.msg.Int64, b+'step_cmd', partial(self.set_step, ax))
 
