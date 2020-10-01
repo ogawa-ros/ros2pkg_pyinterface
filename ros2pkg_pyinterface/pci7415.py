@@ -21,7 +21,7 @@ class pci7415_driver(object):
         self.node.declare_parameter('use_axis')
 
         self.name = self.node.get_parameter('node_name').get_parameter_value().string_value
-        self.rsw_id = self.node.get_parameter('rsw_id').get_parameter_value().double_value
+        self.rsw_id = self.node.get_parameter('rsw_id').get_parameter_value().integer_value
         self._use_axis = self.node.get_parameter('use_axis').get_parameter_value().string_value
 
         conf_list={'x':{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0},
@@ -91,7 +91,7 @@ class pci7415_driver(object):
         self.default_speed = {ax: p['motion']['speed'] for ax, p in self.params.items()}
         self.low_speed = {ax: p['motion']['low_speed'] for ax, p in self.params.items()}
 
-        self.mot = pyinterface.open(7415, int(self.rsw_id))
+        self.mot = pyinterface.open(7415,self.rsw_id)
         for ax in self.use_axis:
             self.mot.set_pulse_out(ax, 'method', self.params[ax]['pulse_conf'])
         self.mot.set_motion(self.use_axis, self.mode, self.motion)
