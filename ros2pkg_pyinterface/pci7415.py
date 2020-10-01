@@ -40,7 +40,7 @@ class pci7415_driver(object):
 
             self.params[ax]['mode'] = self.node.get_parameter('{ax}_mode'.format(**locals())).get_parameter_value().string_value
             # self.params[ax]['pulse_conf'] = [eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)]
-            self.params[ax]['pulse_conf'] =  conf_list[ax]
+            self.params[ax]['pulse_conf'] =  [conf_list[ax]]
 
             self.mp = {}
                 # mp['clock'] = rospy.get_param('~{ax}_clock'.format(**locals()), default_clock)
@@ -92,7 +92,7 @@ class pci7415_driver(object):
         self.low_speed = {ax: p['motion']['low_speed'] for ax, p in self.params.items()}
 
         self.mot = pyinterface.open(7415, self.rsw_id)
-        [self.mot.set_pulse_out(ax, 'method', [self.params[ax]['pulse_conf'],]) for ax in self.use_axis]
+        [self.mot.set_pulse_out(ax, 'method', self.params[ax]['pulse_conf']) for ax in self.use_axis]
         self.mot.set_motion(self.use_axis, self.mode, self.motion)
 
 
