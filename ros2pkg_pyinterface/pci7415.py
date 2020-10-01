@@ -12,7 +12,7 @@ import std_msgs.msg
 class pci7415_driver(object):
 
 
-    def __init__(self, rsw_id, params):
+    def __init__(self):
         #（__init__における handler の組み込み場所）
         self.node = rclpy.create_node(node_name)
 
