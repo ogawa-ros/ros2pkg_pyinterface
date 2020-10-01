@@ -25,7 +25,7 @@ def generate_launch_description():
                 {"y_pulse_conf" :"{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0}"},
                 {"y_mode" :"jog" },
                 {"y_clock" :"59"} ,
-                {"y_acc_mode" :"acc_normal" },
+                {"y_acc_mode":"acc_normal" },
                 {"y_low_speed" :"10" },
                 {"y_speed" :"50000" },
                 {"y_acc" :"50"} ,
@@ -38,7 +38,7 @@ def generate_launch_description():
                 {"u_acc_mode" :"acc_normal" },
                 {"u_low_speed" :"10" },
                 {"u_speed" :"200"},
-                {"u_acc" "50"} ,
+                {"u_acc" :"50"} ,
                 {"u_dec" :"50"},
                 {"u_step" :"5000" }
             ]
