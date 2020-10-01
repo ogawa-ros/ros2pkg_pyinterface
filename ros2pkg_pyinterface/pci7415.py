@@ -99,7 +99,7 @@ class pci7415_driver(object):
     #元handler 命令値を受け取る
 
 
-        base = '/pyinterface/7415/rsw{self.rsw_id}'.format(**locals())
+        base = '/pyinterface/pci7415/rsw{self.rsw_id}'.format(**locals())
 
         for ax in self.use_axis:
             b = '{base}/{ax}/'.format(**locals())
@@ -264,10 +264,10 @@ class pci7415_driver(object):
 
 def main(args=None):
     rclpy.init(args = args)
-    pci7415=pci7415_driver()
-    rclpy.spin(pci7415.node)
+    self.pci7415=pci7415_driver()
+    rclpy.spin(self.pci7415.node)
 
-    pci7415.node.destory_node()
+    self.pci7415.node.destory_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
