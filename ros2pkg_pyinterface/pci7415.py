@@ -203,7 +203,6 @@ class pci7415_driver(object):
         else: pass
         return
 
-　　#元handler
     def set_do(self, do, do_num):
         self.do_status[do_num-1] = do.data
         self.func_queue.put({'func': self.output_do, 'data': self.do_status, 'axis': 0})
