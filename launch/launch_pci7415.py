@@ -5,7 +5,7 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='ros2pkg_pyinterface',
-            node_executable='pci7415',
+            node_executable='launch_pci7415',
             parameters=[
                 {"rsw_id" : "0" },
                 {"do_conf" :"[1, 1, 1, 1]" },
