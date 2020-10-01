@@ -39,7 +39,7 @@ class pci7415_driver(object):
             self.node.declare_parameter('{ax}_pulse_conf')
 
             self.params[ax]['mode'] = self.node.get_parameter('{ax}_mode').get_parameter_value().string_value
-            self.params[ax]['pulse_conf'] = eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)
+            self.params[ax]['pulse_conf'] = [eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)]
             # self.params[ax]['pulse_conf'] =  conf_list[ax]
 
             self.mp = {}
