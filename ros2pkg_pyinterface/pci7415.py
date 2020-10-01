@@ -35,10 +35,10 @@ class pci7415_driver(object):
             self.params[ax] = {}
             #params[ax]['mode'] = rospy.get_param('~{ax}_mode'.format(**locals()), default_mode)
             #params[ax]['pulse_conf'] = [eval(rospy.get_param('~{ax}_pulse_conf'.format(**locals()), default_pulse_conf))] #evalとは？？？
-            self.node.declare_parameter('{ax}_mode')
-            self.node.declare_parameter('{ax}_pulse_conf')
+            self.node.declare_parameter('{ax}_mode'.format(**locals()))
+            self.node.declare_parameter('{ax}_pulse_conf'.format(**locals()))
 
-            self.params[ax]['mode'] = self.node.get_parameter('{ax}_mode').get_parameter_value().string_value
+            self.params[ax]['mode'] = self.node.get_parameter('{ax}_mode'.format(**locals())).get_parameter_value().string_value
             # self.params[ax]['pulse_conf'] = [eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)]
             self.params[ax]['pulse_conf'] =  conf_list[ax]
 
@@ -51,22 +51,22 @@ class pci7415_driver(object):
                 # mp['dec'] = rospy.get_param('~{ax}_dec'.format(**locals()), default_dec)
                 # mp['step'] = rospy.get_param('~{ax}_step'.format(**locals()), default_step)
 
-            self.node.declare_parameter('{ax}_clock')
-            self.node.declare_parameter('{ax}_acc_mode')
-            self.node.declare_parameter('{ax}_low_speed')
-            self.node.declare_parameter('{ax}_speed')
-            self.node.declare_parameter('{ax}_acc')
-            self.node.declare_parameter('{ax}_dec')
-            self.node.declare_parameter('{ax}_step')
+            self.node.declare_parameter('{ax}_clock'.format(**locals()))
+            self.node.declare_parameter('{ax}_acc_mode'.format(**locals()))
+            self.node.declare_parameter('{ax}_low_speed'.format(**locals()))
+            self.node.declare_parameter('{ax}_speed'.format(**locals()))
+            self.node.declare_parameter('{ax}_acc'.format(**locals()))
+            self.node.declare_parameter('{ax}_dec'.format(**locals()))
+            self.node.declare_parameter('{ax}_step'.format(**locals()))
 
 
-            self.mp['clock'] = self.node.get_parameter('{ax}_clock').get_parameter_value().double_value #mpにはselfはいらない？？　paramsに格納するから
-            self.mp['acc_mode'] = self.node.get_parameter('{ax}_acc_mode').get_parameter_value().string_value
-            self.mp['low_speed'] = self.node.get_parameter('{ax}_low_speed').get_parameter_value().double_value
-            self.mp['speed'] = self.node.get_parameter('{ax}_speed').get_parameter_value().double_value
-            self.mp['acc'] = self.node.get_parameter('{ax}_acc').get_parameter_value().double_value
-            self.mp['dec'] = self.node.get_parameter('{ax}_dec').get_parameter_value().double_value
-            self.mp['step'] = self.node.get_parameter('{ax}_step').get_parameter_value().double_value
+            self.mp['clock'] = self.node.get_parameter('{ax}_clock'.format(**locals())).get_parameter_value().double_value #mpにはselfはいらない？？　paramsに格納するから
+            self.mp['acc_mode'] = self.node.get_parameter('{ax}_acc_mode'.format(**locals())).get_parameter_value().string_value
+            self.mp['low_speed'] = self.node.get_parameter('{ax}_low_speed'.format(**locals())).get_parameter_value().double_value
+            self.mp['speed'] = self.node.get_parameter('{ax}_speed'.format(**locals())).get_parameter_value().double_value
+            self.mp['acc'] = self.node.get_parameter('{ax}_acc'.format(**locals())).get_parameter_value().double_value
+            self.mp['dec'] = self.node.get_parameter('{ax}_dec'.format(**locals())).get_parameter_value().double_value
+            self.mp['step'] = self.node.get_parameter('{ax}_step'.format(**locals())).get_parameter_value().double_value
             self.params[ax]['motion'] = self.mp
             continue
 
