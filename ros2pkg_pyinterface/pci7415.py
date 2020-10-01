@@ -91,7 +91,7 @@ class pci7415_driver(object):
         self.default_speed = {ax: p['motion']['speed'] for ax, p in self.params.items()}
         self.low_speed = {ax: p['motion']['low_speed'] for ax, p in self.params.items()}
 
-        self.mot = pyinterface.open(7415, self.rsw_id)
+        self.mot = pyinterface.open(7415, int(self.rsw_id))
         for ax in self.use_axis:
             self.mot.set_pulse_out(ax, 'method', self.params[ax]['pulse_conf'])
         self.mot.set_motion(self.use_axis, self.mode, self.motion)
