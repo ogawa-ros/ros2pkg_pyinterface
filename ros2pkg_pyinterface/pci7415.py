@@ -32,7 +32,7 @@ class pci7415_driver(object):
 
         self.params = {}
         for ax in self._use_axis:
-            params[ax] = {}
+            self.params[ax] = {}
             #params[ax]['mode'] = rospy.get_param('~{ax}_mode'.format(**locals()), default_mode)
             #params[ax]['pulse_conf'] = [eval(rospy.get_param('~{ax}_pulse_conf'.format(**locals()), default_pulse_conf))] #evalとは？？？
             self.node.declare_parameter('{ax}_mode')
