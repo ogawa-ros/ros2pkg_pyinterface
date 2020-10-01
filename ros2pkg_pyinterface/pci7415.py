@@ -154,8 +154,8 @@ class pci7415_driver(object):
         #time.sleep(1e-5)
             # 要検討
 
-    def set_speed(self, ax,speed):
-        if abs(speed) < self.low_speed[ax]:
+    def set_speed(self, ax, speed):
+        if abs(speed.data) < self.low_speed[ax]:
             #pub stop
             self.func_queue.put({'func': self.stop, 'data': 1, 'axis': ax}) # ->req data は１のこと？？？？？???????
             while self.current_moving[ax] != 0:
@@ -164,14 +164,14 @@ class pci7415_driver(object):
             return
 
         if self.move_mode[ax] == 'jog':
-            if (self.last_direction[ax] * speed > 0) & (self.current_moving[ax] != 0):
+            if (self.last_direction[ax] * speed.data > 0) & (self.current_moving[ax] != 0):
                 #pub change_speed
-                self.func_queue.put({'func': self.change_speed, 'data': abs(speed), 'axis': ax}) #req dataはabs(speed.data)???????
+                self.func_queue.put({'func': self.change_speed, 'data': abs(speed.data), 'axis': ax}) #req dataはabs(speed.data)???????
                 pass
 
             else:
 
-                if speed > 0:
+                if speed.data > 0:
                     step = +1
                     pass
 
@@ -179,7 +179,7 @@ class pci7415_driver(object):
                     step = -1
                     pass
 
-                speed_step = [abs(speed), step]
+                speed_step = [abs(speed.data), step]
                 self.last_direction[ax] = step
 
                 #pub start
