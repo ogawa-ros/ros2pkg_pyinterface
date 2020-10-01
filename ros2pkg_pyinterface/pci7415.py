@@ -108,7 +108,7 @@ class pci7415_driver(object):
             self.node.create_subscription(std_msgs.msg.Int64, b+'step_cmd', partial(self.set_step, ax))
 
             # rospy.Subscriber(b+'speed_cmd', std_msgs.msg.Float64, self.set_speed, callback_args=ax)
-            self.node.create_subscription(std_msgs.msg.Int64, b+'speed_cmd', partial(self.set_speed, ax))
+            self.node.create_subscription(std_msgs.msg.Float64, b+'speed_cmd', partial(self.set_speed, ax))
 
         for do_num in range(1,5):
             self.node.create_subscription(std_msgs.msg.Int64, '{}/output_do{}_cmd'.format(base, do_num), partial(self.set_do, do_num))
