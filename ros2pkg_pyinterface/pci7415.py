@@ -177,7 +177,7 @@ class pci7415_driver(object):
 
                 #pub start
 
-                self.func_queue.put({'func': self.start, 'data': speed_step, 'axis': ax})　# speed_step_arrayはどこに代入？？？？？？？？
+                self.func_queue.put({'func': self.start, 'data': speed_step, 'axis': ax})
                 time.sleep(0.01)
                 pass
             pass
