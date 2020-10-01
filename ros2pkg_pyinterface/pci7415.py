@@ -24,6 +24,12 @@ class pci7415_driver(object):
         self.rsw_id = self.node.get_parameter('rsw_id').get_parameter_value().double_value
         self._use_axis = self.node.get_parameter('use_axis').get_parameter_value().string_value
 
+        conf_list={'x':{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0},
+                   'y':{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0},
+                   'z':{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0},
+                   'u':{'PULSE': 1, 'OUT': 1, 'DIR': 1, 'WAIT': 0, 'DUTY': 0}
+                   }
+
         self.params = {}
         for ax in self._use_axis:
             params[ax] = {}
@@ -33,8 +39,8 @@ class pci7415_driver(object):
             self.node.declare_parameter('{ax}_pulse_conf')
 
             self.params[ax]['mode'] = self.node.get_parameter('{ax}_mode').get_parameter_value().string_value
-            self.params[ax]['pulse_conf'] = eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)
-
+            # self.params[ax]['pulse_conf'] = eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)
+            self.params[ax]['pulse_conf'] =  conf_list[ax]
 
             self.mp = {}
                 # mp['clock'] = rospy.get_param('~{ax}_clock'.format(**locals()), default_clock)
