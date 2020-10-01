@@ -67,7 +67,7 @@ class pci7415_driver(object):
             self.mp['acc'] = self.node.get_parameter('{ax}_acc').get_parameter_value().double_value
             self.mp['dec'] = self.node.get_parameter('{ax}_dec').get_parameter_value().double_value
             self.mp['step'] = self.node.get_parameter('{ax}_step').get_parameter_value().double_value
-            self.params[ax]['motion'] = mp
+            self.params[ax]['motion'] = self.mp
             continue
 
     #元driver
