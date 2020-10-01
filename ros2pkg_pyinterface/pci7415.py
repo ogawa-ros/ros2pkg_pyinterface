@@ -154,7 +154,7 @@ class pci7415_driver(object):
         #time.sleep(1e-5)
             # 要検討
 
-    def set_speed(self, speed, ax):
+    def set_speed(self, ax,speed):
         if abs(speed) < self.low_speed[ax]:
             #pub stop
             self.func_queue.put({'func': self.stop, 'data': 1, 'axis': ax}) # ->req data は１のこと？？？？？???????
