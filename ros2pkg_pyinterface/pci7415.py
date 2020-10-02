@@ -20,9 +20,9 @@ class pci7415_driver(object):
         self.node.declare_parameter('rsw_id')
         self.node.declare_parameter('use_axis')
 
-        self.name = self.node.get_parameter('node_name').get_parameter_value().string_value
-        self.rsw_id = self.node.get_parameter('rsw_id').get_parameter_value().integer_value
-        self._use_axis = self.node.get_parameter('use_axis').get_parameter_value().string_value
+        self.name = str(self.node.get_parameter('node_name').value)
+        self.rsw_id = int(self.node.get_parameter('rsw_id').value)
+        self._use_axis = str(self.node.get_parameter('use_axis').value)
 
         conf_list={'x':{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0},
                    'y':{'PULSE': 1, 'OUT': 0, 'DIR': 0, 'WAIT': 0, 'DUTY': 0},
@@ -38,7 +38,7 @@ class pci7415_driver(object):
             self.node.declare_parameter('{ax}_mode'.format(**locals()))
             self.node.declare_parameter('{ax}_pulse_conf'.format(**locals()))
 
-            self.params[ax]['mode'] = self.node.get_parameter('{ax}_mode'.format(**locals())).get_parameter_value().string_value
+            self.params[ax]['mode'] = str(self.node.get_parameter('{ax}_mode'.format(**locals())).value)
             # self.params[ax]['pulse_conf'] = [eval(self.node.get_parameter('{ax}_pulse_conf').get_parameter_value().string_value)]
             self.params[ax]['pulse_conf'] =  [conf_list[ax]]
 
@@ -60,13 +60,13 @@ class pci7415_driver(object):
             self.node.declare_parameter('{ax}_step'.format(**locals()))
 
 
-            self.mp['clock'] = self.node.get_parameter('{ax}_clock'.format(**locals())).get_parameter_value().double_value #mpにはselfはいらない？？　paramsに格納するから
-            self.mp['acc_mode'] = self.node.get_parameter('{ax}_acc_mode'.format(**locals())).get_parameter_value().string_value
-            self.mp['low_speed'] = self.node.get_parameter('{ax}_low_speed'.format(**locals())).get_parameter_value().double_value
-            self.mp['speed'] = self.node.get_parameter('{ax}_speed'.format(**locals())).get_parameter_value().double_value
-            self.mp['acc'] = self.node.get_parameter('{ax}_acc'.format(**locals())).get_parameter_value().double_value
-            self.mp['dec'] = self.node.get_parameter('{ax}_dec'.format(**locals())).get_parameter_value().double_value
-            self.mp['step'] = self.node.get_parameter('{ax}_step'.format(**locals())).get_parameter_value().double_value
+            self.mp['clock'] = int(self.node.get_parameter('{ax}_clock'.format(**locals())).value) #mpにはselfはいらない？？　paramsに格納するから
+            self.mp['acc_mode'] = int(self.node.get_parameter('{ax}_acc_mode'.format(**locals())).value)
+            self.mp['low_speed'] = int(self.node.get_parameter('{ax}_low_speed'.format(**locals())).value)
+            self.mp['speed'] = int(self.node.get_parameter('{ax}_speed'.format(**locals())).value)
+            self.mp['acc'] = int(self.node.get_parameter('{ax}_acc'.format(**locals())).value)
+            self.mp['dec'] = int(self.node.get_parameter('{ax}_dec'.format(**locals())).value)
+            self.mp['step'] = int(self.node.get_parameter('{ax}_step'.format(**locals())).value)
             self.params[ax]['motion'] = self.mp
             continue
 
