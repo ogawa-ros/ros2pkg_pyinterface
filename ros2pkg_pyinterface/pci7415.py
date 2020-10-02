@@ -98,6 +98,11 @@ class pci7415_driver(object):
 
 
     #元handler 命令値を受け取る
+        self.pub = {}
+        for ax in self.use_axis:
+
+            self.pub[ax+'_speed'] = self.node.create_publisher(std_msgs.msg.Float64, 'pci7415_speed{ax}_test'.format(**locals()), 1)
+
 
 
         base = '/pyinterface/pci7415/rsw{self.rsw_id}'.format(**locals())
@@ -113,7 +118,6 @@ class pci7415_driver(object):
         for do_num in range(1,5):
             self.node.create_subscription(std_msgs.msg.Int64, '{}/output_do{}_cmd'.format(base, do_num), partial(self.set_do, do_num))
             #rospy.Subscriber('{}/output_do{}_cmd'.format(base, do_num), std_msgs.msg.Int64, self.set_do, callback_args=do_num)
-
 
         # loop start 元driver
         # self.th = threading.Thread(target=self.loop)
@@ -133,6 +137,13 @@ class pci7415_driver(object):
         speed = self.mot.read_speed(self.use_axis)
         step = self.mot.read_counter(self.use_axis, cnt_mode='counter')
         moving = self.mot.driver.get_main_status(self.use_axis)
+
+        for ax, _ in zip(self.use_axis, speed):
+            msg = std_msgs.msg.Float64()
+            msg.data = float(_)
+            self.pub[ax+'_speed'].publish(msg)
+
+
             #t1 = time.time()
          # speed, step はそのまま辞書に入れる　　for文はいらない
 
@@ -202,10 +213,8 @@ class pci7415_driver(object):
                 self.func_queue.put({'func': self.change_speed, 'data': step.data, 'axis': ax})
 
             else:
-                speed_step = [abs(self.default_speed[ax]), step.data]
-                speed_step_array = std_msgs.msg.Float64MultiArray()
-                speed_step_array.data = speed_step
-                self.func_queue.put({'func': self.start, 'data': speed_step_array, 'axis': ax})
+                speed_step = [self.params[ax]['motion']['speed'],step]
+                self.func_queue.put({'func': self.start, 'data': speed_step, 'axis': ax})
                 pass
         else: pass
         return
