@@ -230,7 +230,7 @@ class pci7415_driver(object):
         pass
 
     def start(self, data, axis):
-        self.mot.stop_motion(axis=axis, stop_mode='dec_stop')
+        self.mot.stop_motion(axis=axis, stop_mode='immediate_stop')
         self.motion[axis]['speed'] = data[0]
         self.motion[axis]['step'] = int(data[1])
         axis_mode = [self.mode[self.use_axis.find(axis)]]
@@ -242,7 +242,7 @@ class pci7415_driver(object):
         pass
 
     def stop(self, data, axis):
-        self.mot.stop_motion(axis=axis, stop_mode='dec_stop')
+        self.mot.stop_motion(axis=axis, stop_mode='immediate_stop')
         pass
 
     def change_speed(self, data, axis):
