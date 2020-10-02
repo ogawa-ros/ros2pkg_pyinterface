@@ -234,13 +234,13 @@ class pci7415_driver(object):
         self.motion[axis]['speed'] = data[0]
         self.motion[axis]['step'] = int(data[1])
         axis_mode = [self.mode[self.use_axis.find(axis)]]
-        with open('/root/before_while.txt', 'w') as f:
-            f.write('ok')
+        with open('/root/before_while.txt', 'a') as f:
+            f.write(time.time())
         while self.current_moving[axis] != 0:
             time.sleep(10e-5)
             continue
-        with open('/root/after_while.txt', 'w') as f:
-            f.write('ok')
+        with open('/root/after_while.txt', 'a') as f:
+            f.write(time.time())
         self.mot.set_motion(axis=axis, mode=axis_mode, motion=self.motion)
         self.mot.start_motion(axis=axis, start_mode='const', move_mode=self.params[axis]['mode'])
         pass
