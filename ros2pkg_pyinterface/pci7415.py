@@ -136,7 +136,7 @@ class pci7415_driver(object):
             #t0 = time.time()
         speed = self.mot.read_speed(self.use_axis)
         step = self.mot.read_counter(self.use_axis, cnt_mode='counter')
-        moving = self.mot.driver.get_main_status(self.use_axis)
+        moving = [int(_[0]) for _ in self.mot.driver.get_main_status(self.use_axis)]
 
         for ax, _ in zip(self.use_axis, speed):
             msg = std_msgs.msg.Float64()
