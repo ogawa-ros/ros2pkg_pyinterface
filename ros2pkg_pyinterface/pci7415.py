@@ -61,7 +61,7 @@ class pci7415_driver(object):
 
 
             self.mp['clock'] = int(self.node.get_parameter('{ax}_clock'.format(**locals())).value) #mpにはselfはいらない？？　paramsに格納するから
-            self.mp['acc_mode'] = int(self.node.get_parameter('{ax}_acc_mode'.format(**locals())).value)
+            self.mp['acc_mode'] = str(self.node.get_parameter('{ax}_acc_mode'.format(**locals())).value)
             self.mp['low_speed'] = int(self.node.get_parameter('{ax}_low_speed'.format(**locals())).value)
             self.mp['speed'] = int(self.node.get_parameter('{ax}_speed'.format(**locals())).value)
             self.mp['acc'] = int(self.node.get_parameter('{ax}_acc'.format(**locals())).value)
