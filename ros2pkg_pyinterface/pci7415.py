@@ -170,8 +170,7 @@ class pci7415_driver(object):
         if abs(speed.data) < self.low_speed[ax]:
             #pub stop
             self.func_queue.put({'func': self.stop, 'data': 1, 'axis': ax}) # ->req data は１のこと？？？？？???????
-            while int(self.mot.driver.get_main_status(ax)[0][0]) != 0:
-                time.sleep(1e-5)
+
             self.last_direction[ax] = 0
             return
 
@@ -244,6 +243,8 @@ class pci7415_driver(object):
 
     def stop(self, data, axis):
         self.mot.stop_motion(axis=axis, stop_mode='immediate_stop')
+        while int(self.mot.driver.get_main_status(ax)[0][0]) != 0:
+            time.sleep(1e-5)
         pass
 
     def change_speed(self, data, axis):
