@@ -206,7 +206,7 @@ class pci7415_driver(object):
 
         return
 
-    def set_step(self, step, ax):
+    def set_step(self, ax, step):
         if self.move_mode[ax] == 'ptp':
             if self.current_moving[ax] != 0:
                 #pub change_step
@@ -234,9 +234,13 @@ class pci7415_driver(object):
         self.motion[axis]['speed'] = data[0]
         self.motion[axis]['step'] = int(data[1])
         axis_mode = [self.mode[self.use_axis.find(axis)]]
+        with open('~/Desktop/before_while.txt', 'w') as f:
+            f.write('ok')
         while self.current_moving[axis] != 0:
             time.sleep(10e-5)
             continue
+        with open('~/Desktop/after_while.txt', 'w') as f:
+            f.write('ok')
         self.mot.set_motion(axis=axis, mode=axis_mode, motion=self.motion)
         self.mot.start_motion(axis=axis, start_mode='const', move_mode=self.params[axis]['mode'])
         pass
