@@ -171,7 +171,7 @@ class pci7415_driver(object):
             #pub stop
             self.func_queue.put({'func': self.stop, 'data': 1, 'axis': ax}) # ->req data は１のこと？？？？？???????
             while int(self.mot.driver.get_main_status(ax)[0][0]) != 0:
-                time.sleep(0.01)
+                time.sleep(1e-5)
             self.last_direction[ax] = 0
             return
 
@@ -236,7 +236,7 @@ class pci7415_driver(object):
         self.motion[axis]['step'] = int(data[1])
         axis_mode = [self.mode[self.use_axis.find(axis)]]
         while int(self.mot.driver.get_main_status(axis)[0][0]) != 0:
-            time.sleep(0.01)
+            time.sleep(1e-5)
             continue
         self.mot.set_motion(axis=axis, mode=axis_mode, motion=self.motion)
         self.mot.start_motion(axis=axis, start_mode='const', move_mode=self.params[axis]['mode'])
