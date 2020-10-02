@@ -243,7 +243,7 @@ class pci7415_driver(object):
 
     def stop(self, data, axis):
         self.mot.stop_motion(axis=axis, stop_mode='immediate_stop')
-        while int(self.mot.driver.get_main_status(ax)[0][0]) != 0:
+        while int(self.mot.driver.get_main_status(axis)[0][0]) != 0:
             time.sleep(1e-5)
         pass
 
