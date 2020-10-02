@@ -169,7 +169,7 @@ class pci7415_driver(object):
         if abs(speed.data) < self.low_speed[ax]:
             #pub stop
             self.func_queue.put({'func': self.stop, 'data': 1, 'axis': ax}) # ->req data は１のこと？？？？？???????
-            while self.current_moving[ax] != 0:
+            while self.mot.driver.get_main_status(ax)[0][0] != 0:
                 time.sleep(10e-5)
             self.last_direction[ax] = 0
             return
@@ -230,17 +230,13 @@ class pci7415_driver(object):
         pass
 
     def start(self, data, axis):
-        self.mot.stop_motion(axis=axis, stop_mode='dec_stop')
+        self.mot.stop_motion(axis=axis, stop_mode='_stop')
         self.motion[axis]['speed'] = data[0]
         self.motion[axis]['step'] = int(data[1])
         axis_mode = [self.mode[self.use_axis.find(axis)]]
-        with open('/root/before_while.txt', 'a') as f:
-            f.write(str(time.time()))
-        while self.current_moving[axis] != 0:
+        while self.mot.driver.get_main_status(axis)[0][0] != 0:
             time.sleep(10e-5)
             continue
-        with open('/root/after_while.txt', 'a') as f:
-            f.write(str(time.time()))
         self.mot.set_motion(axis=axis, mode=axis_mode, motion=self.motion)
         self.mot.start_motion(axis=axis, start_mode='const', move_mode=self.params[axis]['mode'])
         pass
