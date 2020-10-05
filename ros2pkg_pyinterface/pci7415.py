@@ -223,7 +223,7 @@ class pci7415_driver(object):
         self.do_status[do_num-1] = do.data
         self.func_queue.put({'func': self.output_do, 'data': self.do_status, 'axis': 0})
         with open('/root/dotest.txt', 'w') as f:
-            f.write(do)
+            f.write(str(do))
             pass
         return
 
