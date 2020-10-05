@@ -232,10 +232,11 @@ class pci7415_driver(object):
     def start(self, data, axis):
         self.mot.stop_motion(axis=axis, stop_mode='immediate_stop')
         self.motion[axis]['speed'] = data[0]
-        self.motion[axis]['step'] = int(data[1])
-        with open('/root/data', 'w) as f:
+         with open('/root/data', 'w) as f:
             f.write(str(type(data[1])))
             pass
+        self.motion[axis]['step'] = int(data[1])
+       
         axis_mode = [self.mode[self.use_axis.find(axis)]]
         while int(self.mot.driver.get_main_status(axis)[0][0]) != 0:
             time.sleep(1e-5)
