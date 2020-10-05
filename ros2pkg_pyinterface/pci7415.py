@@ -234,6 +234,7 @@ class pci7415_driver(object):
         self.motion[axis]['speed'] = data[0]
          with open('/root/data', 'w) as f:
             f.write(str(type(data[1])))
+            f.write(str(data[1]))
             pass
         self.motion[axis]['step'] = int(data[1])
        
