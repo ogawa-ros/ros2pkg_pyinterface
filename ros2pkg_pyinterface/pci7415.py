@@ -210,7 +210,7 @@ class pci7415_driver(object):
         if self.move_mode[ax] == 'ptp':
             if self.current_moving[ax] != 0:
                 #pub change_step
-                self.func_queue.put({'func': self.change_speed, 'data': step.data, 'axis': ax})
+                self.func_queue.put({'func': self.change_step, 'data': step.data, 'axis': ax})
 
             else:
                 speed_step = [self.params[ax]['motion']['speed'],step]
