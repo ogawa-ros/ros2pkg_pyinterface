@@ -213,7 +213,7 @@ class pci7415_driver(object):
                 self.func_queue.put({'func': self.change_step, 'data': step.data, 'axis': ax})
 
             else:
-                speed_step = [self.params[ax]['motion']['speed'],step]
+                speed_step = [self.params[ax]['motion']['speed'],step.data]
                 self.func_queue.put({'func': self.start, 'data': speed_step, 'axis': ax})
                 pass
         else: pass
